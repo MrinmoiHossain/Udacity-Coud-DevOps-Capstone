@@ -1,7 +1,7 @@
 pipeline {
     agent any
     environment {
-        PATH=$HOME/.local/bin:$PATH
+        PATH="$HOME/.local/bin:$PATH"
     }
     stages {
         stage('Installing dependencies via Makefile') {
