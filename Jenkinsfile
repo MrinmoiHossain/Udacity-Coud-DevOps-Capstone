@@ -21,5 +21,15 @@ pipeline {
                 }
             }
         }
+	stage('Upload Docker Image to Hub') {
+            steps {
+                withCredentials([usernamePassword(credentialsId: 'docker-credentials', usernameVariable: 'DOC_USERNAME', passwordVariable: 'DOC_PASSWORD')]) {
+                    sh '''
+                        docker login -u $DOC_USERNAME -p $DOC_PASSWORD
+                        docker push mrinmoi/capstone
+                    '''
+                }
+            }
+        }
     }
 }
