@@ -1,1 +1,1 @@
-# Udacity-Capstone
+# Udacity Cloud DevOps Capstone
