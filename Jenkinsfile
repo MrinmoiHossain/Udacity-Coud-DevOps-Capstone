@@ -14,5 +14,12 @@ pipeline {
                 sh 'make lint'
             }
         }
+	stage('Build Docker Image') {
+            steps {
+                withCredentials([usernamePassword(credentialsId: 'docker-credentials', usernameVariable: 'DOC_USERNAME', passwordVariable: 'DOC_PASSWORD')]) {
+                    sh 'docker build -t mrinmoi/capstone .'
+                }
+            }
+        }
     }
 }
