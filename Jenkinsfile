@@ -40,5 +40,46 @@ pipeline {
 				}
 			}
 		}
+        stage('Deploy Blue Container') {
+			steps {
+				withAWS(region:'us-east-1', credentials:'eks-credentials') {
+					sh '''
+						kubectl apply -f ./bgdeployment/blue-controller.json
+					'''
+				}
+			}
+		}
+		stage('Deploy Green Container') {
+			steps {
+				withAWS(region:'us-east-1', credentials:'eks-credentials') {
+					sh '''
+						kubectl apply -f ./bgdeployment/green-controller.json
+					'''
+				}
+			}
+		}
+        stage('Create Service in the Cluster-Blue') {
+			steps {
+				withAWS(region:'us-east-1', credentials:'eks-credentials') {
+					sh '''
+						kubectl apply -f ./bgdeployment/blue-service.json
+					'''
+				}
+			}
+		}
+		stage('Wait for User Permission') {
+            steps {
+                input "Do you want to redirect traffic to green?"
+            }
+        }
+        stage('Create Service in the Cluster-Green') {
+			steps {
+				withAWS(region:'us-east-1', credentials:'eks-credentials') {
+					sh '''
+						kubectl apply -f ./bgdeployment/green-service.json
+					'''
+				}
+			}
+		}
     }
 }
