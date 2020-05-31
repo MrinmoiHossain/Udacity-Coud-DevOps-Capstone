@@ -31,13 +31,14 @@ pipeline {
                 }
             }
         }
-        stage("Path Test") {
-            steps {
-                sh '''
-                    echo $PATH
-                    pwd
-                '''
-            }
-        }
+        stage('Set Current kubectl Context') {
+			steps {
+				withAWS(region:'us-east-1', credentials:'eks-credentials') {
+					sh '''
+					    aws eks --region us-east-1 update-kubeconfig --name capstonecluster
+					'''
+				}
+			}
+		}
     }
 }
