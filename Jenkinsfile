@@ -35,7 +35,7 @@ pipeline {
 			steps {
 				withAWS(region:'us-east-1', credentials:'eks-credentials') {
 					sh '''
-					    aws eks --region us-east-1 update-kubeconfig --name clustercapstone
+					    kubectl config use-context arn:aws:eks:us-east-1:802725115046:cluster/clustercapstone
 					'''
 				}
 			}
