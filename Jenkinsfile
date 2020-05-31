@@ -4,12 +4,12 @@ pipeline {
         PATH="$HOME/.local/bin:$PATH"
     }
     stages {
-        stage('Installing dependencies via Makefile') {
+        stage('Installing Dependencies via Makefile') {
             steps {
                 sh 'make install'
             }
         }
-        stage('Lint checks on the code') {
+        stage('Lint Checks on the Code') {
             steps {
                 sh 'make lint'
             }
