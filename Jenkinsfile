@@ -31,5 +31,11 @@ pipeline {
                 }
             }
         }
+        stage("Path Test") {
+            sh '''
+                echo $PATH
+                pwd
+            '''
+        }
     }
 }
